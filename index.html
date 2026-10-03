@@ -9,378 +9,102 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Marine Propulsion Train</title>
+    <title>Marine Propulsion Physics</title>
 
-    <!-- Your stylesheet -->
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 
-    <!-- D3 -->
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 </head>
 
-
 <body>
 
-    <div class="dashboard">
+    <main class="app">
 
+        <header>
+            <p class="eyebrow">
+                MARINE PROPULSION LAB
+            </p>
 
-        <!-- ==================================================
-             HEADER
-        =================================================== -->
+            <h1>
+                Propeller Physics
+            </h1>
 
-        <header class="topbar">
-
-
-            <div class="title-area">
-
-                <div class="eyebrow">
-                    MARINE PROPULSION SYSTEM / 01
-                </div>
-
-
-                <h1>
-                    Marine Propulsion Train
-                </h1>
-
-
-                <p>
-                    Interactive planetary reduction and shaft-line visualization
-                </p>
-
-            </div>
-
-
-            <div class="status-badge">
-
-                <span class="status-dot"></span>
-
-                SYSTEM ACTIVE
-
-            </div>
-
-
+            <p class="subtitle">
+                Torque, inertia and hydrodynamic resistance
+            </p>
         </header>
 
 
+        <section class="simulation">
 
-        <!-- ==================================================
-             MAIN DASHBOARD
-        =================================================== -->
+            <div id="chart"></div>
 
-        <main class="main-layout">
-
+        </section>
 
 
-            <!-- ==============================================
-                 LEFT SIDE
-                 PROPULSION VISUALIZATION
-            =============================================== -->
+        <section class="controls">
 
-            <section class="visualization-panel">
+            <div class="control">
 
+                <label for="throttle">
+                    ENGINE COMMAND
+                </label>
 
-                <div class="panel-label">
-                    PROPULSION TRAIN
+                <input
+                    id="throttle"
+                    type="range"
+                    min="-100"
+                    max="100"
+                    value="0"
+                >
+
+                <div class="throttle-labels">
+                    <span>ASTERN</span>
+                    <span>STOP</span>
+                    <span>AHEAD</span>
                 </div>
 
-
-                <!--
-                    D3 inserts the complete SVG system here:
-
-                    Input
-                    ↓
-                    Planetary gearbox
-                    ↓
-                    Flex coupling
-                    ↓
-                    Thrust bearing
-                    ↓
-                    Shaft bearings
-                    ↓
-                    Stern tube
-                    ↓
-                    Propeller
-                -->
-
-                <div id="chart"></div>
+            </div>
 
 
+            <div class="telemetry">
 
-                <!-- ==========================================
-                     BOTTOM SYSTEM INFORMATION
-                =========================================== -->
-
-                <div class="bottom-stats">
-
-
-                    <div>
-
-                        <span class="stat-label">
-                            CONFIGURATION
-                        </span>
-
-                        <strong id="configurationText">
-                            RING FIXED
-                        </strong>
-
-                    </div>
-
-
-
-                    <div>
-
-                        <span class="stat-label">
-                            REDUCTION RATIO
-                        </span>
-
-                        <strong id="ratioText">
-                            6.00 : 1
-                        </strong>
-
-                    </div>
-
-
-
-                    <div>
-
-                        <span class="stat-label">
-                            PLANET GEARS
-                        </span>
-
-                        <strong>
-                            3
-                        </strong>
-
-                    </div>
-
-
+                <div>
+                    <span>THROTTLE</span>
+                    <strong id="throttleValue">
+                        0%
+                    </strong>
                 </div>
 
-
-            </section>
-
-
-
-            <!-- ==============================================
-                 RIGHT SIDE
-                 CONTROL + TELEMETRY
-            =============================================== -->
-
-            <aside class="control-panel">
-
-
-                <div class="panel-label">
-                    PROPULSION CONTROL
+                <div>
+                    <span>PROPELLER</span>
+                    <strong id="rpmValue">
+                        0.0 RPM
+                    </strong>
                 </div>
 
-
-
-                <!-- ==========================================
-                     LIVE TELEMETRY
-                =========================================== -->
-
-                <div class="telemetry">
-
-
-                    <!--
-                        carrierRPM is being used by JavaScript
-                        as OUTPUT SHAFT RPM
-                    -->
-
-                    <div class="telemetry-row">
-
-                        <span>
-                            OUTPUT SHAFT
-                        </span>
-
-                        <strong id="carrierRPM">
-                            18 RPM
-                        </strong>
-
-                    </div>
-
-
-
-                    <!--
-                        sunRPM is the high-speed INPUT SHAFT
-                        calculated from the 6:1 ratio
-                    -->
-
-                    <div class="telemetry-row">
-
-                        <span>
-                            INPUT SHAFT
-                        </span>
-
-                        <strong id="sunRPM">
-                            108 RPM
-                        </strong>
-
-                    </div>
-
-
-
-                    <div class="telemetry-row">
-
-                        <span>
-                            RING GEAR
-                        </span>
-
-                        <strong
-                            id="ringRPM"
-                            class="locked"
-                        >
-                            LOCKED
-                        </strong>
-
-                    </div>
-
-
+                <div>
+                    <span>TORQUE</span>
+                    <strong id="torqueValue">
+                        0.0
+                    </strong>
                 </div>
 
-
-
-                <div class="divider"></div>
-
-
-
-                <!-- ==========================================
-                     OUTPUT SPEED
-                =========================================== -->
-
-                <div class="speed-control">
-
-
-                    <label for="speed">
-                        OUTPUT SHAFT SPEED
-                    </label>
-
-
-                    <!--
-                        JavaScript currently moves this slider
-                        automatically to match the CSV data.
-                    -->
-
-                    <input
-                        id="speed"
-                        type="range"
-                        min="1"
-                        max="60"
-                        value="18"
-                    >
-
-
-                    <div class="speed-readout">
-
-                        <span id="rpm">
-                            18
-                        </span>
-
-                        <small>
-                            RPM
-                        </small>
-
-                    </div>
-
-
+                <div>
+                    <span>THRUST</span>
+                    <strong id="thrustValue">
+                        0.0
+                    </strong>
                 </div>
 
+            </div>
 
+        </section>
 
-                <!-- ==========================================
-                     CONTROLS
-                =========================================== -->
+    </main>
 
-                <div class="button-grid">
-
-
-                    <button
-                        id="playButton"
-                        type="button"
-                    >
-                        PAUSE
-                    </button>
-
-
-                    <button
-                        id="reverseButton"
-                        type="button"
-                    >
-                        REVERSE
-                    </button>
-
-
-                </div>
-
-
-
-                <div class="divider"></div>
-
-
-
-                <!-- ==========================================
-                     GEARBOX SPECIFICATIONS
-                =========================================== -->
-
-                <div class="gear-data">
-
-
-                    <div>
-
-                        SUN
-
-                        <strong>
-                            16T
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        PLANET
-
-                        <strong>
-                            32T
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        RING
-
-                        <strong>
-                            80T
-                        </strong>
-
-                    </div>
-
-
-                </div>
-
-
-            </aside>
-
-
-        </main>
-
-
-    </div>
-
-
-
-    <!-- ======================================================
-         YOUR JAVASCRIPT
-         Must come AFTER the HTML so all elements exist first.
-    ======================================================= -->
 
     <script src="script.js"></script>
-
 
 </body>
 
