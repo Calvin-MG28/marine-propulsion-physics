@@ -1,0 +1,578 @@
+:root {
+
+    --bg: #05090d;
+
+    --panel: #0a1118;
+
+    --panel-light: #101a24;
+
+    --border: #1c3445;
+
+    --blue: #38bdf8;
+
+    --cyan: #67e8f9;
+
+    --text: #e6f4ff;
+
+    --muted: #71899a;
+
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #04080c,
+            #08131d
+        );
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: var(--text);
+
+}
+
+
+.dashboard {
+
+    width: min(1400px, 94vw);
+
+    margin: 40px auto;
+
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-bottom: 25px;
+
+}
+
+
+.eyebrow {
+
+    color: var(--blue);
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 8px;
+
+}
+
+
+h1 {
+
+    margin: 0;
+
+    font-size: 42px;
+
+    font-weight: 500;
+
+    letter-spacing: -1px;
+
+}
+
+
+.topbar p {
+
+    color: var(--muted);
+
+    margin: 7px 0 0;
+
+}
+
+
+.status-badge {
+
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    padding: 10px 14px;
+
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.status-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--cyan);
+
+    box-shadow:
+        0 0 10px var(--cyan);
+
+}
+
+
+/* ================================
+   MAIN LAYOUT
+================================ */
+
+.main-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2.2fr)
+        minmax(280px, 0.8fr);
+
+    gap: 18px;
+
+}
+
+
+/* ================================
+   GEAR AREA
+================================ */
+
+.visualization-panel {
+
+    position: relative;
+
+    min-height: 700px;
+
+    padding: 24px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #102334,
+            #071019 65%
+        );
+
+    border: 1px solid var(--border);
+
+    overflow: hidden;
+
+}
+
+
+.visualization-panel::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.12;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.08) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.08) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        40px 40px;
+
+    pointer-events: none;
+
+}
+
+
+.panel-label {
+
+    position: relative;
+
+    z-index: 2;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+}
+
+
+#chart {
+
+    width: 90%;
+
+    max-width: 650px;
+
+    margin:
+
+        10px auto
+        0;
+
+}
+
+
+.bottom-stats {
+
+    position: absolute;
+
+    left: 25px;
+
+    right: 25px;
+
+    bottom: 22px;
+
+    display: flex;
+
+    gap: 45px;
+
+}
+
+
+.bottom-stats > div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.stat-label {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.bottom-stats strong {
+
+    font-family: monospace;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+}
+
+
+/* ================================
+   SIDE PANEL
+================================ */
+
+.control-panel {
+
+    padding: 25px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+}
+
+
+.telemetry {
+
+    margin-top: 30px;
+
+}
+
+
+.telemetry-row {
+
+    padding: 16px 0;
+
+    border-bottom:
+        1px solid #142431;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.telemetry-row span {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.telemetry-row strong {
+
+    color: var(--cyan);
+
+    font-family: monospace;
+
+    font-size: 14px;
+
+}
+
+
+.telemetry-row .locked {
+
+    color: #ffb454;
+
+}
+
+
+.divider {
+
+    height: 1px;
+
+    background: var(--border);
+
+    margin: 30px 0;
+
+}
+
+
+/* ================================
+   SPEED
+================================ */
+
+.speed-control label {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 18px;
+
+}
+
+
+input[type="range"] {
+
+    width: 100%;
+
+    accent-color: var(--blue);
+
+}
+
+
+.speed-readout {
+
+    margin-top: 15px;
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 6px;
+
+}
+
+
+.speed-readout span {
+
+    font-size: 42px;
+
+    font-family: monospace;
+
+    color: var(--cyan);
+
+}
+
+
+.speed-readout small {
+
+    color: var(--muted);
+
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.button-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 8px;
+
+    margin-top: 25px;
+
+}
+
+
+button {
+
+    padding: 13px;
+
+    border:
+
+        1px solid
+        var(--border);
+
+    background:
+        #0e1b25;
+
+    color:
+        var(--text);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        1.5px;
+
+    cursor:
+        pointer;
+
+    transition:
+        .2s;
+
+}
+
+
+button:hover {
+
+    border-color:
+        var(--blue);
+
+    background:
+        #102b3c;
+
+    color:
+        var(--cyan);
+
+}
+
+
+/* ================================
+   GEAR DATA
+================================ */
+
+.gear-data {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 5px;
+
+}
+
+
+.gear-data div {
+
+    padding:
+        12px 5px;
+
+    text-align:
+        center;
+
+    background:
+        #071018;
+
+    border:
+        1px solid #142633;
+
+    color:
+        var(--muted);
+
+    font-size:
+        9px;
+
+}
+
+
+.gear-data strong {
+
+    display:
+        block;
+
+    margin-top:
+        5px;
+
+    color:
+        var(--cyan);
+
+    font-size:
+        14px;
+
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (
+    max-width: 900px
+) {
+
+    .main-layout {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .visualization-panel {
+
+        min-height:
+            600px;
+
+    }
+
+}
